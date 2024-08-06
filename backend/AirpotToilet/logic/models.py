@@ -18,4 +18,4 @@ class Day(models.Model):
 class Allocation(models.Model):
     Aid = models.AutoField(primary_key=True)
     Sid = models.ForeignKey(Staff, on_delete = models.CASCADE)
-    Did = models.ForeignKey(Day, on_delete = models.CASCADE)
+    Did = models.OneToOneField(Day, on_delete = models.CASCADE)

@@ -79,3 +79,88 @@ def deleteFeedback(request, Fid):
         return Response("Deleted Sucessifully", status=200)
     except:
         return Response(f' Feedback {Fid} does not exist')
+
+
+
+# DAY
+
+@api_view(['POST'])
+def createDay(request):
+    serializer = DaySerializer(data = request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def getDay(request):
+    day = Day.objects.all()
+    serializer = DaySerializer(day, many=True)
+    return Response(serializer.data, status=200)
+
+@api_view(['PUT'])
+def updateDay(request, Did):
+    try:
+        day = Day.objects.get(Did = Did)
+        serialzer = DaySerializer(day, data=request.data)
+        if serialzer.is_valid():
+            serialzer.save()
+            return Response(serialzer.data, status=200)
+        return Response(serialzer.errors)
+    except:
+        return Response(f"Day with ID {Did} does not exist")
+
+@api_view(['DELETE'])
+def deleteDay(request, Did):
+    try:
+        day = Day.objects.get(Did = Did)
+        day.delete()
+        return Response(f"Day with ID {Did} deleted successifully")
+    except:
+        return Response(f"Day with ID {Did} does not exist")
+
+
+# ALLOCATION
+
+@api_view(['POST'])
+def createAllocation(request):
+    serializer = AllocationSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)
+
+@api_view(['GET'])
+def getAllocation(request):
+    allocation = Allocation.objects.all()
+    serializer = AllocationSerializer(allocation, many=True)
+    return Response(serializer.data, status=200)
+
+@api_view(['GET'])
+def getAllocationByID(request, Aid):
+    allocation = Allocation.objects.get(Aid = Aid)
+    serializer = AllocationSerializer(allocation)
+    return Response(serializer.data)
+    
+
+@api_view(['PUT'])
+def updateAllocation(request, Aid):
+    try:
+        allocation = Allocation.objects.get( Aid = Aid)
+        serializer = AllocationSerializer(allocation, data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=201)
+        return Response(serializer.errors, status=400)
+    except:
+        return Response(f'Allocation with ID {Aid} does not exist')
+
+
+@api_view(['DELETE'])
+def deleteAllocation(request, Aid):
+    try:
+        allocation = Allocation.objects.get(Aid = Aid)
+        allocation.delete()
+        return Response(f'Allocation with ID {Aid} deleted successifully')
+    except:
+        return Response(f'Allocation with ID {Aid} does not exist')
