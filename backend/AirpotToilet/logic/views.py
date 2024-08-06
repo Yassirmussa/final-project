@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from .models import Staff,Day,Allocation,Feedback
 from .serializers import StaffSerializer,DaySerializer,AllocationSerializer,FeedbackSerializer
 # Create your views here.
+
 # STAFF
 @api_view(['POST'])
 def createStaff(request):
@@ -40,9 +41,6 @@ def deleteStaff(request, Sid):
     except:
         return Response(f' staff {Sid} does not exist')
     
-
-
-
 
 #  FEEDBACK
 @api_view(['POST'])
@@ -97,6 +95,15 @@ def getDay(request):
     day = Day.objects.all()
     serializer = DaySerializer(day, many=True)
     return Response(serializer.data, status=200)
+
+@api_view(['GET'])
+def getDayByID(request, Did):
+    try:
+        day = Day.objects.get(Did = Did)
+        serializer = DaySerializer(day)
+        return Response(serializer.data)
+    except:
+        return Response(f"Day with ID {Did} does not exist")
 
 @api_view(['PUT'])
 def updateDay(request, Did):
