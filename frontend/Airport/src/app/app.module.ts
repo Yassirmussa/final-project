@@ -11,12 +11,14 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { StaffComponent } from './pages/staff/staff.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    DashboardComponent
+    DashboardComponent,
+    StaffComponent
   ],
   imports: [
     BrowserModule,
